@@ -3,11 +3,6 @@
     2022-08-31 23:38
 """
 
-"""
-Functions
-"""
-
-
 def extract_field(line, field):
     """
         !@brief This function extracts a field from a line whose fields
@@ -32,12 +27,13 @@ def parse_category_list(file_path, income_category_list,
         @param  income_category_list    - income categories list
         @param  expense_category_list   - expense categories list
 
+        @return Status (OK = False, NOK = True)
     """
     try:
         fin = open(file_path, 'r')
     except IOError:
         print(f'HomeBank file {file_path} does not exist')
-        return
+        return True
 
     for line in fin:
 
@@ -62,44 +58,7 @@ def parse_category_list(file_path, income_category_list,
                                             extract_field(line, "name"))
     expense_category_list.sort()
     income_category_list.sort()
-
-
-"""
-Classes
-"""
-
-
-class HomeBankCategory():
-    """
-        Class with HomeBank category information
-    """
-
-    def __init__(self, sign='income', category="", subcategory=""):
-        """
-        !@brief Creates a new HomeBank category
-
-        @param sign         - category sign (income, expense)
-        @param category     - category string
-        @param subcategory  - subcategory string
-        """
-        if sign != "income":
-            self.sign = "expense"
-        else:
-            self.sign = sign
-        self.category = category
-        self.subcategory = subcategory
-
-    def compare(self, target):
-        """
-        !@brief This function compares two HomeBank categories
-
-        @param target   - target category object
-
-        @return False or True
-        """
-        return ((self.sign == target.sign) and
-                (self.category == target.category) and
-                (self.subcategory == target.subcategory))
+    return False
 
 
 class HomeBankCategories():
@@ -118,17 +77,24 @@ class HomeBankCategories():
         parse_category_list(file_path, self.income_categories,
                             self.expense_categories)
 
+    def contains(self, sign='income', category=""):
+        """
+        !@brief This function checks if object already contains a category
+
+        @param sign             - category sign (income, expense)
+        @param category         - target category object
+
+        @return False or True
+        """
+        if sign == 'income':
+            return (category in self.income_categories)
+        else:
+            return (category in self.expense_categories)
+
 
 if __name__ == "__main__":
 
-    category1 = HomeBankCategory("income", "testcat", "testsubcat")
-    category2 = HomeBankCategory("expense", "testcat", "testsubcat")
-    category3 = HomeBankCategory("income", "testcat", "testsubcat")
-
-    print(f'Test1: {category1.compare(category2)}')
-    print(f'Test2: {category1.compare(category3)}')
-
-    hbcategories = HomeBankCategories('est.xhb')
+    hbcategories = HomeBankCategories('../../data/test.xhb')
     print("Income categories:")
     print(hbcategories.income_categories)
     print("Expense categories:")
