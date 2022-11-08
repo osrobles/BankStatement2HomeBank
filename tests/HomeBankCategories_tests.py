@@ -9,12 +9,15 @@ from context import HomeBankCategories
 
 class TestHomeBankCategories(unittest.TestCase):
 
-    def test_parse_category_list_unavailable_file(self):
-        expense_categories = []
-        income_categories = []
-        self.assertTrue(HomeBankCategories.parse_category_list("unknown.xhb",
-                                                               expense_categories,
-                                                               income_categories))
+    def test_unavailable_file(self):
+        hbcategories = HomeBankCategories.HomeBankCategories('unknown.xhb')
+        self.assertEqual(hbcategories.status, True)
+
+    def test_list_correct_file(self):
+        hbcategories = HomeBankCategories.HomeBankCategories('data/test.xhb')
+        self.assertEqual(hbcategories.status, False)
+        self.assertGreater(len(hbcategories.income_categories), 0)
+        self.assertGreater(len(hbcategories.expense_categories), 0)
 
 
 if __name__ == "__main__":
