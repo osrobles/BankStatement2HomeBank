@@ -59,7 +59,11 @@ def parse_category_list(file_path, income_category_list,
                                             extract_field(line, "name"))
     fin.close()
     expense_category_list.sort()
+    if len(expense_category_list) == 0:
+        print("Expense category list empty")
     income_category_list.sort()
+    if len(income_category_list) == 0:
+        print("Income category list empty")
     return False
 
 
