@@ -96,12 +96,3 @@ class HomeBankCategories():
             return (category in self.income_categories)
         else:
             return (category in self.expense_categories)
-
-
-if __name__ == "__main__":
-
-    hbcategories = HomeBankCategories('../data/test.xhb')
-    print("Income categories:")
-    print(hbcategories.income_categories)
-    print("Expense categories:")
-    print(hbcategories.expense_categories)
