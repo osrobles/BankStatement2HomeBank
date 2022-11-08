@@ -3,6 +3,7 @@
     2022-08-31 23:38
 """
 
+
 def extract_field(line, field):
     """
         !@brief This function extracts a field from a line whose fields
@@ -56,6 +57,7 @@ def parse_category_list(file_path, income_category_list,
             elif flags == "3":
                 income_category_list.append(parent + ":" +
                                             extract_field(line, "name"))
+    fin.close()
     expense_category_list.sort()
     income_category_list.sort()
     return False
@@ -74,8 +76,8 @@ class HomeBankCategories():
         """
         self.expense_categories = []
         self.income_categories = []
-        parse_category_list(file_path, self.income_categories,
-                            self.expense_categories)
+        self.status = parse_category_list(file_path, self.income_categories,
+                                          self.expense_categories)
 
     def contains(self, sign='income', category=""):
         """
@@ -94,7 +96,7 @@ class HomeBankCategories():
 
 if __name__ == "__main__":
 
-    hbcategories = HomeBankCategories('../../data/test.xhb')
+    hbcategories = HomeBankCategories('../data/test.xhb')
     print("Income categories:")
     print(hbcategories.income_categories)
     print("Expense categories:")
