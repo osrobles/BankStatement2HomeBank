@@ -12,3 +12,4 @@ sys.path.insert(0, path)
 
 
 import HomeBankCategories
+import Category
