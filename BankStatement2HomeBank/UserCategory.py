@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """
-    Category module
+    UserCategory module
     2022-11-08 23:59
 """
 
 
-class Category():
+class UserCategory():
     """
         Class with custom categories information
     """
@@ -35,10 +35,3 @@ class Category():
         @return False or True
         """
         return (self.token in input_string.lower())
-
-
-if __name__ == "__main__":
-
-    cat = Category('test', 'test')
-    print(f'1: {cat.check("My test")}')
-    print(f'1: {cat.check("Hola")}')
