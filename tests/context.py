@@ -12,5 +12,6 @@ path = path + '/BankStatement2HomeBank'
 sys.path.insert(0, path)
 
 
+import ListManagement
 import HomeBankCategories
 import Category
