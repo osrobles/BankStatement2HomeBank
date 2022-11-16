@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
     HomeBankCategories package tests
     2022-09-01 23:07
@@ -7,7 +8,7 @@ import unittest
 from context import HomeBankCategories
 
 
-class TestHomeBankCategories(unittest.TestCase):
+class Test(unittest.TestCase):
 
     def test_unavailable_file(self):
         hbcategories = HomeBankCategories.HomeBankCategories('unknown.xhb')

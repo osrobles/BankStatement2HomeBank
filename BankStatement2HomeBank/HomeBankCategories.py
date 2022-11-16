@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
     Resources for HomeBank original file (.xhb) categories extraction
     2022-08-31 23:38
