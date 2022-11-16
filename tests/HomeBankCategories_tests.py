@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         self.assertEqual(hbcategories.status, True)
 
     def test_list_correct_file(self):
-        hbcategories = HomeBankCategories.HomeBankCategories('data/test.xhb')
+        hbcategories = HomeBankCategories.HomeBankCategories('data/homebank_test_file.xhb')
         self.assertEqual(hbcategories.status, False)
         self.assertGreater(len(hbcategories.income_categories), 0)
         self.assertGreater(len(hbcategories.expense_categories), 0)
