@@ -11,22 +11,30 @@ from context import UserCategory
 class Test(unittest.TestCase):
 
     def test_wrong_token(self):
-        self.assertRaises(Exception, UserCategory.UserCategory, '', 'Category name')
+        self.assertRaises(Exception, UserCategory.UserCategory, '', '-', 'Category')
+
+    def test_wrong_sign(self):
+        self.assertRaises(Exception, UserCategory.UserCategory, 'token', 't', 'Category')
 
     def test_wrong_category_name(self):
-        self.assertRaises(Exception, UserCategory.UserCategory, 'Token', '')
+        self.assertRaises(Exception, UserCategory.UserCategory, 'Token', '-', '')
 
     def test_category_object_created(self):
         try:
-            UserCategory.UserCategory('Token', 'Category name')
+            UserCategory.UserCategory('Token', '-', 'Category')
+            UserCategory.UserCategory('Token', '+', 'Category')
         except Exception:
             self.fail("test_category_object_created")
 
     def test_category_check_mememship(self):
-        cat = UserCategory.UserCategory('Token', 'Category name')
+        cat = UserCategory.UserCategory('Token', '-', 'Category')
         self.assertTrue(cat.checkMembership('Token found'))
         self.assertTrue(cat.checkMembership('token not found'))
         self.assertFalse(cat.checkMembership('toke not found'))
+
+    def test_toCSV(self):
+        cat = UserCategory.UserCategory('Token', '-', 'Category')
+        self.assertEqual('token;-;Category', cat.toCSV())
 
 
 if __name__ == "__main__":

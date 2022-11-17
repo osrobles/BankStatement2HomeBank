@@ -4,13 +4,15 @@
     2022-11-08 23:59
 """
 
+from ListManagement import list2csv
+
 
 class UserCategory():
     """
         Class with custom categories information
     """
 
-    def __init__(self, token='', category_name=''):
+    def __init__(self, token='', sign='-', category_name=''):
         """
         !@brief This function creates a new custom categories object
 
@@ -21,6 +23,12 @@ class UserCategory():
             raise Exception("ERROR: token")
         else:
             self.token = token.lower()
+
+        if sign == '-' or sign == '+':
+            self.sign = sign
+        else:
+            raise Exception(f'ERROR: sign {sign} not allowed')
+
         if not isinstance(category_name, str) or len(category_name) == 0:
             raise Exception("ERROR: category name")
         else:
@@ -35,3 +43,13 @@ class UserCategory():
         @return False or True
         """
         return (self.token in input_string.lower())
+
+    def toCSV(self, sep=";"):
+        """
+        !@brief This function converts UserCategory fields to CSV format
+
+        @param  sep - separator character
+
+        @return UserCategory CSV string
+        """
+        return list2csv(list(self.__dict__.values()), sep)
