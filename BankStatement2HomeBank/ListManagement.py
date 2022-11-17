@@ -64,3 +64,17 @@ def list2csv(lst, sep=";"):
         else:
             csv_str += f'{item}{sep}'
     return csv_str
+
+
+def csv2list(csvString="", sep=";"):
+    """
+    !@brief This function converts a CSV string to a list
+
+        @param  csvString   - CSV string
+        @param  sep         - separator character
+
+        @return List with seperated CSV fields
+    """
+    if not isinstance(csvString, str) or len(csvString) == 0:
+        return []
+    return csvString.split(sep)

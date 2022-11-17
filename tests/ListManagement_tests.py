@@ -13,6 +13,7 @@ class Test(unittest.TestCase):
 
     empty_list = []
     test_list = ["uno", "dos", "tres", "cuatro", "cinco"]
+    test_csv = "uno;dos;tres;cuatro;cinco"
 
     def test_ask_user_for_list_items_empty(self):
         out = ListManagement.ask_user_for_list_items(Test.empty_list, False)
@@ -34,7 +35,16 @@ class Test(unittest.TestCase):
 
     def test_list2csv_correct(self):
         out = ListManagement.list2csv(Test.test_list, ";")
-        self.assertEqual(out, "uno;dos;tres;cuatro;cinco")
+        self.assertEqual(out, Test.test_csv)
+
+    def test_csv2list_empty(self):
+        out = ListManagement.csv2list("")
+        self.assertEqual(len(out), 0)
+
+    def test_csv2list_correct(self):
+        out = ListManagement.csv2list(Test.test_csv, ";")
+        print(f'out: {out}')
+        self.assertEqual(out, Test.test_list)
 
 
 if __name__ == "__main__":
