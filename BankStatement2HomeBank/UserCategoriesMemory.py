@@ -64,7 +64,7 @@ class UserCategoriesMemory():
         @param sep                      - separator character
         """
         if not isinstance(HomeBankCategoriesObject, HomeBankCategories.HomeBankCategories):
-            raise Exception("ERROR: HomeBankCategories")
+            raise Exception("ERROR: HomeBankCategoriesObject")
 
         for i, cat in enumerate(self.expense_categories):
             if cat.category_name not in HomeBankCategoriesObject.expense_categories:
@@ -86,6 +86,27 @@ class UserCategoriesMemory():
         for uc in self.income_categories:
             fout.write(uc.toCSV(sep) + '\n')
         fout.close()
+
+    def addNew(self, UserCategoryObject=None, sep=";"):
+        """
+        !@brief This function adds new UserCategory and appends it to the file
+
+        @param UserCategoryObject   - HomeBankCategories object
+        @param sep                  - separator character
+        """
+        if not isinstance(UserCategoryObject, UserCategory.UserCategory):
+            raise Exception("ERROR: UserCategoryObject")
+        append = True
+        if UserCategoryObject.sign == '-':
+            self.expense_categories.append(UserCategoryObject)
+        elif UserCategoryObject.sign == '+':
+            self.income_categories.append(UserCategoryObject)
+        else:
+            append = False
+        if append:
+            fout = open(self.file_path, "a")
+            fout.write(UserCategoryObject.toCSV(sep) + '\n')
+            fout.close()
 
     def findCategory(self, sign='-', token=""):
         """

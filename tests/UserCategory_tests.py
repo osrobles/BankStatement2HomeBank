@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    HomeBankCategories package tests
+    UserCategory package tests
     2022-09-01 23:07
 """
 
