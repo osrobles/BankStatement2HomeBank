@@ -15,3 +15,4 @@ sys.path.insert(0, path)
 import ListManagement
 import HomeBankCategories
 import UserCategory
+import UserCategoriesMemory
