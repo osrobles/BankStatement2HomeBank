@@ -91,7 +91,7 @@ class UserCategoriesMemory():
         """
         !@brief This function adds new UserCategory and appends it to the file
 
-        @param UserCategoryObject   - HomeBankCategories object
+        @param UserCategoryObject   - UserCategory object
         @param sep                  - separator character
         """
         if not isinstance(UserCategoryObject, UserCategory.UserCategory):

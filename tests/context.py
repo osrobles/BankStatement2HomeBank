@@ -17,3 +17,4 @@ import HomeBankCategories
 import UserCategory
 import UserCategoriesMemory
 import UserPaymentMode
+import UserPaymentModesMemory

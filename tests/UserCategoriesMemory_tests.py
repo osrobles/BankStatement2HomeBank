@@ -52,7 +52,7 @@ class Test(unittest.TestCase):
         userCat = ucm.UserCategoriesMemory('data/user_categories_mem_test_file.csv')
         self.assertRaises(Exception, userCat.addNew, 'None', ';')
 
-    def test_addNew_(self):
+    def test_addNew_correct(self):
         copyfile('data/user_categories_mem_test_file.csv',
                  'data/user_categories_mem_test_file.csv.orig')
         userCatMem = ucm.UserCategoriesMemory('data/user_categories_mem_test_file.csv')
