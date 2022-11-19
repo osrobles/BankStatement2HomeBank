@@ -47,7 +47,7 @@ class UserCategoriesMemory():
         """
         !@brief This function creates a new HomeBank categories object
 
-        @param file_path - HomeBank file (.xhb)
+        @param file_path    - User categories memory file (.csv)
         """
         self.file_path = file_path
         self.expense_categories = []

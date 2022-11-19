@@ -13,15 +13,25 @@ from context import UserPaymentModesMemory as umm
 
 class Test(unittest.TestCase):
 
+    test_file_path = 'data/user_modes_mem_test_file.csv'
     def test_constructor_unavailable_file(self):
         userModesMem = umm.UserPaymentModesMemory('unknown.csv')
         os.remove('unknown.csv')
         self.assertEqual(userModesMem.status, True)
 
-    def test_constructor_correct_file(self):
-        userModesMem = umm.UserPaymentModesMemory('data/user_modes_mem_test_file.csv')
+    def test_constructor_debit_card(self):
+        userModesMem = umm.UserPaymentModesMemory(Test.test_file_path, ";", "debit")
         self.assertEqual(userModesMem.status, False)
         self.assertEqual(len(userModesMem.modes_memory), 10)
+        self.assertEqual(userModesMem.modes_memory[0].mode, um.PaymentModes.DEBIT_CARD)
+        self.assertEqual(userModesMem.modes_memory[4].mode, um.PaymentModes.DEBIT_CARD)
+
+    def test_constructor_credit_card(self):
+        userModesMem = umm.UserPaymentModesMemory(Test.test_file_path, ";", "credit")
+        self.assertEqual(userModesMem.status, False)
+        self.assertEqual(len(userModesMem.modes_memory), 10)
+        self.assertEqual(userModesMem.modes_memory[0].mode, um.PaymentModes.CREDIT_CARD)
+        self.assertEqual(userModesMem.modes_memory[4].mode, um.PaymentModes.CREDIT_CARD)
 
     def test_addNew_wrong_UserPaymentModeObject(self):
         userModesMem = umm.UserPaymentModesMemory('data/user_modes_mem_test_file.csv')

@@ -7,13 +7,16 @@
 import UserPaymentMode
 
 
-def parse_file(file_path, separator=";", modes_list=[]):
+def parse_file(file_path, separator=";",
+               card_mode=UserPaymentMode.PaymentModes.DEBIT_CARD,
+               modes_list=[]):
     """
     !@brief This function parses an user pyament modes memory file
 
-        @param  file_path               - file path
-        @param  separator               - CSV separator
-        @param  modes_list    - payment modes list
+        @param  file_path   - file path
+        @param  separator   - CSV separator
+        @param  card_mode   - Card mode for card operations
+        @param  modes_list  - payment modes list
 
         @return Status (OK = False, Empty file = True)
     """
@@ -26,7 +29,11 @@ def parse_file(file_path, separator=";", modes_list=[]):
         return True
 
     for line in fin.read().splitlines():
-        modes_list.append(UserPaymentMode.UserPaymentMode(line, separator))
+        upm = UserPaymentMode.UserPaymentMode(line, separator)
+        if upm.mode == UserPaymentMode.PaymentModes.DEBIT_CARD or \
+           upm.mode == UserPaymentMode.PaymentModes.CREDIT_CARD:
+            upm.mode = card_mode
+        modes_list.append(upm)
     fin.close()
     return False
 
@@ -36,15 +43,26 @@ class UserPaymentModesMemory():
         Class for User Payment Modes Memory
     """
 
-    def __init__(self, file_path='', separator=";"):
+    def __init__(self, file_path='', separator=";", card_type="debit"):
         """
         !@brief This function creates a new HomeBank categories object
 
-        @param file_path - HomeBank file (.xhb)
+        @param file_path    - User payment modes memory file (.csv)
+        @param sep          - separator character
+        @param card_type    - Default card type (debit, credit)
         """
         self.file_path = file_path
         self.modes_memory = []
-        self.status = parse_file(file_path, separator, self.modes_memory)
+        if not isinstance(card_type, str) or \
+           (card_type.lower() not in (["debit", "credit"])):
+            print(f'WARNING: unknown card_type {card_type}')
+            self.card_type = UserPaymentMode.PaymentModes.DEBIT_CARD
+        elif card_type == "debit":
+            self.card_type = UserPaymentMode.PaymentModes.DEBIT_CARD
+        else:
+            self.card_type = UserPaymentMode.PaymentModes.CREDIT_CARD
+        self.status = parse_file(file_path, separator,
+                                 self.card_type, self.modes_memory)
 
     def write2file(self, sep=";"):
         """
