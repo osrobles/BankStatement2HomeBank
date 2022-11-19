@@ -39,17 +39,18 @@ class UserPaymentMode():
         Class with user payment modes information
     """
 
-    paymentList = list({"Ninguno":  PaymentModes.NONE.value,
-                        "Tarjeta de crédito": PaymentModes.CREDIT_CARD.value,
-                        "Cheque": PaymentModes.CHECK.value,
-                        "Efectivo": PaymentModes.CASH.value,
-                        "Transferencia bancaria": PaymentModes.BANK_TRANSFER.value,
-                        "Tarjeta de débito": PaymentModes.DEBIT_CARD.value,
-                        "Orden de posición": PaymentModes.STANDING_ORDER.value,
-                        "Pago electrónico": PaymentModes.ELECTRONIC_PAYMENT.value,
-                        "Depósito": PaymentModes.DEPOSIT.value,
-                        "FIF": PaymentModes.FIF.value,
-                        "Cargo directo": PaymentModes.DIRECT_DEBIT.value})
+    paymentModes = {"Ninguno":  PaymentModes.NONE.value,
+                    "Tarjeta de crédito": PaymentModes.CREDIT_CARD.value,
+                    "Cheque": PaymentModes.CHECK.value,
+                    "Efectivo": PaymentModes.CASH.value,
+                    "Transferencia bancaria": PaymentModes.BANK_TRANSFER.value,
+                    "Tarjeta de débito": PaymentModes.DEBIT_CARD.value,
+                    "Orden de posición": PaymentModes.STANDING_ORDER.value,
+                    "Pago electrónico": PaymentModes.ELECTRONIC_PAYMENT.value,
+                    "Depósito": PaymentModes.DEPOSIT.value,
+                    "FIF": PaymentModes.FIF.value,
+                    "Cargo directo": PaymentModes.DIRECT_DEBIT.value}
+    paymentModesList = list(paymentModes)
 
     def __init__(self, csv_string='', sep=";"):
         """
