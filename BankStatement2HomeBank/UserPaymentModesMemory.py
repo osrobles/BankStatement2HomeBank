@@ -4,11 +4,12 @@
     2022-11-19 16:13
 """
 
+import HomeBankPaymentModes as HBModes
 import UserPaymentMode
 
 
 def parse_file(file_path, separator=";",
-               card_mode=UserPaymentMode.PaymentModes.DEBIT_CARD,
+               card_mode=HBModes.PaymentModesEnum.DEBIT_CARD,
                modes_list=[]):
     """
     !@brief This function parses an user pyament modes memory file
@@ -30,8 +31,8 @@ def parse_file(file_path, separator=";",
 
     for line in fin.read().splitlines():
         upm = UserPaymentMode.UserPaymentMode(line, separator)
-        if upm.mode == UserPaymentMode.PaymentModes.DEBIT_CARD or \
-           upm.mode == UserPaymentMode.PaymentModes.CREDIT_CARD:
+        if upm.mode == HBModes.PaymentModesEnum.DEBIT_CARD or \
+           upm.mode == HBModes.PaymentModesEnum.CREDIT_CARD:
             upm.mode = card_mode
         modes_list.append(upm)
     fin.close()
@@ -56,11 +57,11 @@ class UserPaymentModesMemory():
         if not isinstance(card_type, str) or \
            (card_type.lower() not in (["debit", "credit"])):
             print(f'WARNING: unknown card_type {card_type}')
-            self.card_type = UserPaymentMode.PaymentModes.DEBIT_CARD
+            self.card_type = HBModes.PaymentModesEnum.DEBIT_CARD
         elif card_type == "debit":
-            self.card_type = UserPaymentMode.PaymentModes.DEBIT_CARD
+            self.card_type = HBModes.PaymentModesEnum.DEBIT_CARD
         else:
-            self.card_type = UserPaymentMode.PaymentModes.CREDIT_CARD
+            self.card_type = HBModes.PaymentModesEnum.CREDIT_CARD
         self.status = parse_file(file_path, separator,
                                  self.card_type, self.modes_memory)
 

@@ -6,6 +6,7 @@
 
 from enum import IntEnum
 import ListManagement as ListMgmt
+import HomeBankPaymentModes as HBModes
 
 
 class CSVInfoIndex(IntEnum):
@@ -17,40 +18,10 @@ class CSVInfoIndex(IntEnum):
     TOTAL = 2
 
 
-class PaymentModes(IntEnum):
-    """
-    Payment modes enumerate
-    """
-    NONE = 0
-    CREDIT_CARD = 1
-    CHECK = 2
-    CASH = 3
-    BANK_TRANSFER = 4
-    DEBIT_CARD = 6
-    STANDING_ORDER = 7
-    ELECTRONIC_PAYMENT = 8
-    DEPOSIT = 9
-    FIF = 10
-    DIRECT_DEBIT = 11
-
-
 class UserPaymentMode():
     """
         Class with user payment modes information
     """
-
-    paymentModes = {"Ninguno":  PaymentModes.NONE.value,
-                    "Tarjeta de crédito": PaymentModes.CREDIT_CARD.value,
-                    "Cheque": PaymentModes.CHECK.value,
-                    "Efectivo": PaymentModes.CASH.value,
-                    "Transferencia bancaria": PaymentModes.BANK_TRANSFER.value,
-                    "Tarjeta de débito": PaymentModes.DEBIT_CARD.value,
-                    "Orden de posición": PaymentModes.STANDING_ORDER.value,
-                    "Pago electrónico": PaymentModes.ELECTRONIC_PAYMENT.value,
-                    "Depósito": PaymentModes.DEPOSIT.value,
-                    "FIF": PaymentModes.FIF.value,
-                    "Cargo directo": PaymentModes.DIRECT_DEBIT.value}
-    paymentModesList = list(paymentModes)
 
     def __init__(self, csv_string='', sep=";"):
         """
@@ -74,11 +45,10 @@ class UserPaymentMode():
         else:
             self.token = token.lower()
 
-        mode_list = [item.value for item in PaymentModes]
         mode = int(cat_info[CSVInfoIndex.MODE.value])
         if not isinstance(mode, int):
             raise Exception("ERROR: MODE type")
-        elif mode not in mode_list:
+        elif mode not in HBModes.getValueList():
             raise Exception("ERROR: MODE unknown")
         else:
             self.mode = mode

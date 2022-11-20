@@ -14,6 +14,7 @@ sys.path.insert(0, path)
 
 import ListManagement
 import HomeBankCategories
+import HomeBankPaymentModes
 import UserCategory
 import UserCategoriesMemory
 import UserPaymentMode
