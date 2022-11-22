@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bank_info>
+	<date_id>Date</date_id>
+	<amount_id>Amount</amount_id>
+	<concept_id>Concept</concept_id>
+	<movement_id>Movement</movement_id>
+</bank_info>
