@@ -64,7 +64,7 @@ class TransactionList():
         !@brief This function creates a new empty transaction list object
         """
         self.list = [ExtendedTransaction]
-        self.processingIndex = 0
+        self.unprocessedList = [int]
 
     def addNew(self, transaction: ExtendedTransaction):
         if not isinstance(transaction, ExtendedTransaction):
@@ -80,12 +80,11 @@ class TransactionList():
         @param  categories_mem  - User categories memory object
         @param  modes_mem       - User payment modes memory object
         """
-        marked = False
         for i, t in enumerate(self.list):
             t.findTransactionCategory(categories_mem)
             t.findTransactionMode(modes_mem)
-            if not t.isProcessed() and not marked:
-                self.processingIndex = i
+            if not t.isProcessed():
+                self.unprocessedList.append(i)
 
     def write2file(self, filepath: str = "", sep: str = ';'):
         """
